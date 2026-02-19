@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOCUS | Performance CX System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0B0B0B;
+            --bg-card: #151515;
+            --bg-card-hover: #1a1a1a;
+            --accent: #FFC400;
+            --text-light: #F5F5F5;
+            --text-muted: #A0A0A0;
+            --glow: 0 0 15px rgba(255, 196, 0, 0.3);
+            --glow-strong: 0 0 25px rgba(255, 196, 0, 0.6);
+            --border-soft: 1px solid rgba(255, 196, 0, 0.15);
+            --border-hover: 1px solid rgba(255, 196, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Abstract Background Lines (Simulado con gradientes) */
+        .bg-lines {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 100% 0%, rgba(255, 196, 0, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 50%, rgba(255, 196, 0, 0.03) 0%, transparent 30%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- Header / Nav --- */
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Botones --- */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            background-color: #ffd033;
+            box-shadow: var(--glow-strong);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 196, 0, 0.1);
+            box-shadow: var(--glow);
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            padding: 50px 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .hero h1 span {
+            color: var(--text-light);
+            display: block;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .value-prop {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .hero-bullets {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .hero-bullets li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+        }
+
+        .hero-bullets i {
+            color: var(--accent);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Node Graph (Recreación CSS de la imagen) */
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        .node-center {
+            width: 120px;
+            height: 120px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            z-index: 2;
+            border: 2px solid rgba(255, 196, 0, 0.3);
+        }
+
+        .node-center i {
+            font-size: 40px;
+            color: var(--accent);
+        }
+
+        .node-orbit {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .node-item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: var(--border-soft);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .node-item:hover { box-shadow: var(--glow); transform: scale(1.1); }
+        
+        /* Posicionamiento de nodos */
+        .n1 { top: 10%; left: 50%; transform: translate(-50%, -50%); }
+        .n2 { top: 25%; right: 10%; }
+        .n3 { top: 50%; right: -5%; transform: translate(0, -50%); }
+        .n4 { bottom: 25%; right: 10%; }
+        .n5 { bottom: 10%; left: 50%; transform: translate(-50%, 50%); }
+        .n6 { bottom: 25%; left: 10%; }
+        .n7 { top: 50%; left: -5%; transform: translate(0, -50%); }
+        .n8 { top: 25%; left: 10%; }
+
+        /* Líneas conectoras */
+        .line { position: absolute; background: rgba(255,255,255,0.1); z-index: 1; }
+        .l-v { width: 1px; height: 100%; top:0; left: 50%; }
+        .l-h { height: 1px; width: 100%; top:50%; left: 0; }
+        .l-d1 { width: 1px; height: 100%; top:0; left: 50%; transform: rotate(45deg); }
+        .l-d2 { width: 1px; height: 100%; top:0; left: 50%; transform: rotate(-45deg); }
+
+        /* --- SECCIONES COMUNES --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .section-title h2 span {
+            color: var(--accent);
+        }
+
+        /* --- 2. EL PROBLEMA & 4. PILARES (Cards) --- */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: var(--border-soft);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border: var(--border-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .card i {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* --- 3. PERFORMANCE SYSTEM --- */
+        .system-block {
+            background: linear-gradient(145deg, #111 0%, #0a0a0a 100%);
+            border: var(--border-soft);
+            border-radius: 20px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .system-list {
+            list-style: none;
+        }
+
+        .system-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .system-list li::before {
+            content: "•";
+            color: var(--accent);
+            font-size: 20px;
+        }
+
+        .system-quote {
+            font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent);
+            font-weight: 600;
+            max-width: 400px;
+            text-align: right;
+            border-right: 4px solid var(--accent);
+            padding-right: 20px;
+        }
+
+        /* --- 6. METODOLOGÍA (Timeline) --- */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 196, 0, 0.2);
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 20%;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-dark);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-weight: bold;
+            color: var(--accent);
+            box-shadow: var(--bg-dark) 0 0 0 10px;
+        }
+
+        /* --- 7. CHECKLIST --- */
+        .checklist {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .checklist li {
+            background: var(--bg-card);
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 3px solid transparent;
+            transition: border 0.3s;
+        }
+        .checklist li:hover {
+            border-left: 3px solid var(--accent);
+        }
+        .checklist li i { color: var(--accent); }
+
+        /* --- 8. COMPROMISO --- */
+        .commitment {
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 196, 0, 0.05);
+            border: 1px solid rgba(255, 196, 0, 0.2);
+            border-radius: 15px;
+            margin: 50px 0;
+        }
+        .commitment h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        .commitment p { color: var(--accent); font-weight: bold; font-size: 18px; }
+
+        /* --- 9. FINAL CTA --- */
+        .cta-section {
+            text-align: center;
+            padding-bottom: 100px;
+        }
+        .vs-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 40px 0;
+            font-family: 'Poppins';
+            font-size: 20px;
+        }
+        .vs-block span { color: var(--text-muted); font-size: 16px; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; }
+            .value-prop { border-left: none; border-bottom: 3px solid var(--accent); padding: 0 0 15px 0; display: inline-block; }
+            .hero-bullets { text-align: left; display: inline-block; }
+            .hero-buttons { justify-content: center; }
+            .system-block { flex-direction: column; text-align: center; }
+            .system-quote { text-align: center; border-right: none; border-top: 4px solid var(--accent); padding-top: 20px; padding-right: 0;}
+            .timeline::before { display: none; }
+            .timeline { flex-direction: column; gap: 30px; }
+            .step { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; /* Simplificación para móvil */ }
+            .hero h1 { font-size: 36px; }
+            .hero-visual { display: none; /* Ocultar gráfico en móviles para limpieza */ }
+            .vs-block { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-lines"></div>
+
+    <div class="container">
+        <header>
+            <a href="#" class="logo brand">FOOCUS</a>
+            <nav class="nav-links">
+                <a href="#problem">El Problema</a>
+                <a href="#system">Sistema</a>
+                <a href="#pillars">Pilares</a>
+                <a href="#methodology">Metodología</a>
+            </nav>
+            <a href="#cta" class="btn btn-outline">Agendar Reunión</a>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1><span>La experiencia no falla por intención.</span> Falla por falta de control estratégico.</h1>
+                <p class="subtitle">En retail y hotelería, el 70% de las decisiones de recompra se definen por la experiencia. La mayoría no tiene visibilidad real sobre lo que ocurre en cada punto de contacto.</p>
+                
+                <p class="value-prop">FOOCUS transforma experiencia omnicanal en performance medible.</p>
+                
+                <ul class="hero-bullets">
+                    <li><i class="fa-solid fa-magnifying-glass"></i> Detectamos brechas críticas</li>
+                    <li><i class="fa-solid fa-chart-line"></i> Conectamos experiencia con resultados financieros</li>
+                    <li><i class="fa-solid fa-bullseye"></i> Activamos decisiones ejecutivas basadas en datos reales</li>
+                </ul>
+
+                <div class="hero-buttons">
+                    <a href="#cta" class="btn btn-primary">👉 Agendar Reunión Estratégica</a>
+                    <a href="#cta" class="btn btn-outline">📈 Solicitar Diagnóstico Ejecutivo</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="node-orbit">
+                    <div class="line l-v"></div>
+                    <div class="line l-h"></div>
+                    <div class="line l-d1"></div>
+                    <div class="line l-d2"></div>
+                </div>
+                <div class="node-center">
+                    <i class="fa-solid fa-desktop"></i>
+                </div>
+                <div class="node-item n1"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div class="node-item n2"><i class="fa-solid fa-store"></i></div>
+                <div class="node-item n3"><i class="fa-solid fa-headset"></i></div>
+                <div class="node-item n4"><i class="fa-solid fa-box"></i></div>
+                <div class="node-item n5"><i class="fa-solid fa-tablet-screen-button"></i></div>
+                <div class="node-item n6"><i class="fa-solid fa-truck"></i></div>
+                <div class="node-item n7"><i class="fa-solid fa-globe"></i></div>
+                <div class="node-item n8"><i class="fa-solid fa-comments"></i></div>
+            </div>
+        </section>
+
+        <section id="problem">
+            <div class="section-title">
+                <h2>El problema no es el servicio.<br><span>Es la falta de control estratégico.</span></h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Desalineación omnicanal, estándar que no se ejecuta igual, lo digital desconectado de lo físico y falta de medición en tiempo real.</p>
+            </div>
+
+            <div class="grid-cards">
+                <div class="card">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                    <h3>Pérdida de conversión</h3>
+                    <p>Fugas silenciosas en el embudo de ventas físico y digital por fricciones no detectadas.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-user-minus"></i>
+                    <h3>Fuga de clientes</h3>
+                    <p>Clientes que no reclaman, simplemente no vuelven a comprar en tu marca.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-code-branch"></i>
+                    <h3>Inconsistencia</h3>
+                    <p>La experiencia varía drásticamente dependiendo de la sucursal o el canal de atención.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                    <h3>Impacto reputacional</h3>
+                    <p>Reseñas negativas que destruyen la confianza y el esfuerzo de marketing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="system">
+            <div class="system-block">
+                <div>
+                    <h2 style="font-size: 32px; margin-bottom: 20px;">No medimos satisfacción.<br><span style="color: var(--accent);">Medimos impacto operativo y comercial.</span></h2>
+                    <ul class="system-list">
+                        <li>Conversión en sala</li>
+                        <li>Ticket promedio</li>
+                        <li>Cumplimiento de estándar crítico</li>
+                        <li>Retención y recompra</li>
+                        <li>Fricción operativa</li>
+                    </ul>
+                </div>
+                <div class="system-quote">
+                    "En 30 días identificamos las brechas que más afectan tus resultados."
+                </div>
+            </div>
+        </section>
+
+        <section id="pillars">
+            <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="card">
+                    <i class="fa-solid fa-chess-knight"></i>
+                    <h3>1. CX Estratégica Financiera</h3>
+                    <p>Mapeo real del customer journey. Generamos un impacto medible en ventas, fidelización y ejecución del estándar.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <h3>2. Mystery Intelligence™</h3>
+                    <p>Evaluación integrada física y digital (tienda, ecommerce, WhatsApp). Análisis profundo de patrones y riesgos estructurales.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h3>3. Intelligence Dashboard™</h3>
+                    <p>Ranking por sucursal, alertas críticas y recomendaciones accionables. Decisiones claras, no reportes decorativos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="differential" style="text-align: center;">
+            <div class="section-title">
+                <h2>Experiencia real. <br><span>No consultoría teórica.</span></h2>
+            </div>
+            <p style="font-size: 18px; max-width: 700px; margin: 0 auto 30px; color: var(--text-muted);">
+                Tenemos experiencia directa operando en retail, restaurantes y hotelería. Entendemos la presión por alcanzar los resultados mensuales. Somos una firma boutique: ofrecemos foco, profundidad analítica y acompañamiento real.
+            </p>
+            <h3 style="font-size: 24px; color: var(--text-light);">La experiencia no mejora con encuestas.<br><span style="color: var(--accent);">Mejora con control y seguimiento estratégico.</span></h3>
+        </section>
+
+        <section id="methodology">
+            <div class="section-title">
+                <h2>Metodología <br><span>Performance CX™</span></h2>
+            </div>
+            <div class="timeline">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Diagnóstico 360°</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Evaluación Inteligente</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Análisis de Impacto</h4>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Activación Estratégica</h4>
+                </div>
+            </div>
+        </section>
+
+        <section id="audience">
+            <div class="section-title">
+                <h2>Para quién es <span>FOOCUS</span></h2>
+            </div>
+            <ul class="checklist">
+                <li><i class="fa-solid fa-check"></i> Cadenas retail en expansión</li>
+                <li><i class="fa-solid fa-check"></i> Hoteles con necesidad de control operativo</li>
+                <li><i class="fa-solid fa-check"></i> Restaurantes que buscan estandarización real</li>
+                <li><i class="fa-solid fa-check"></i> Empresas con crecimiento digital desalineado</li>
+                <li><i class="fa-solid fa-check"></i> Directorios que exigen claridad estratégica</li>
+            </ul>
+        </section>
+
+        <section>
+            <div class="commitment">
+                <h3>Si no detectamos oportunidades accionables con impacto medible en la primera fase, no tiene sentido continuar.</h3>
+                <p>Creemos en performance, no en discursos.</p>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-section">
+            <h2>La experiencia ya está afectando tus resultados.</h2>
+            
+            <div class="vs-block">
+                <div>Operar con suposición</div>
+                <span>VS</span>
+                <div style="color: var(--accent);">Decidir con inteligencia</div>
+            </div>
+
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-primary" style="padding: 15px 40px; font-size: 16px;">👉 Agenda una reunión estratégica</a>
+                <a href="#" class="btn btn-outline" style="padding: 15px 40px; font-size: 16px;">📊 Solicita tu diagnóstico ejecutivo</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 FOOCUS. Customer Experience & Omnichannel Performance. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
